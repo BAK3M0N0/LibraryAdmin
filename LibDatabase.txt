@@ -1,0 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Kaustav
+ */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class LibDatabase {
+    public void newentry(int std,String bk){
+        try{
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                Connection con=DriverManager.getConnection("DB_connection_link","username","password");               
+                PreparedStatement stmt=con.prepareStatement("Insert into library values(?,?)");
+                stmt.setInt(1,std);
+                stmt.setString(2,bk);
+                stmt.executeUpdate();
+                con.close();
+            }catch(Exception e){System.out.println(e);}
+    }
+    public void delentry(int std){
+        try{
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                Connection con=DriverManager.getConnection("DB_connection_link","username","password");
+                PreparedStatement stmt=con.prepareStatement("Delete from library Where suid ="+Integer.toString(std));       
+                stmt.executeUpdate();
+                con.close();
+            }catch(Exception e){System.out.println(e);}
+    }
+}
